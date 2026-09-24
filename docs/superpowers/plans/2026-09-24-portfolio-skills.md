@@ -47,6 +47,8 @@ README.md                                  Modify: document the skills + install
 
 ## How to run a scenario (used by Tasks 2–5)
 
+> **Superseded by `tests/portfolio/RUNNING.md` (created in Task 1)**, which runs scenarios as headless `claude -p` sessions via `tests/portfolio/turn.sh` instead of Agent/SendMessage, because implementer subagents may not dispatch subagents. The protocol text and scoring below still apply.
+
 Each scenario file contains a **Setup** command, a **Prompt**, **Scripted answers**, and **Pass criteria**.
 
 1. Run Setup to create a fresh fixture in the session scratchpad (`$SCRATCH` = the scratchpad directory from the system prompt). `<FIXTURE_ROOT>` is the `<dir>` passed to `make-fixture.sh`; `<FIXTURE_DIR>` is `<FIXTURE_ROOT>/project` (the path it prints). Substitute both into the prompt.
@@ -784,7 +786,8 @@ set +e; HOME="$tmp" bash "$repo/install.sh" >/dev/null 2>&1; code=$?; set -e
 [ "$code" = 1 ] || fail "expected exit 1 on conflict, got $code"
 [ -f "$tmp/.claude/skills/portfolio-kickoff/keep" ] || fail "clobbered real dir"
 
-# Stale symlink is relinked.
+# Stale symlink is relinked (clear the conflict first so exit status is 0 under pipefail).
+rm -rf "$tmp/.claude/skills/portfolio-kickoff"
 ln -sfn /nonexistent "$tmp/.claude/skills/portfolio-checkpoint"
 HOME="$tmp" bash "$repo/install.sh" 2>/dev/null | grep -q "^relinked portfolio-checkpoint$" || fail "no relink"
 
