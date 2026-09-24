@@ -91,7 +91,7 @@ Every skill after ideation starts by reading `brief.md`. If it is missing, the s
    - Understanding targets (at most 3 new concepts)
    - Status: `pending` | `in progress` | `done`
 6. **Checkpoint log:** appended entries (see portfolio-checkpoint).
-7. **Status:** `active` | `complete`.
+7. **Status:** `active` | `complete` | `abandoned`.
 
 ## Skill 1: `portfolio-ideation`
 
@@ -162,6 +162,8 @@ Every skill after ideation starts by reading `brief.md`. If it is missing, the s
 7. **Close out:** append the project to past projects in `profile.md`, set the brief status to `complete`, and commit.
 
 **Definition of complete:** README, recording, case study, and retro all exist; teardown is verified for standard projects (or the live URL is verified for flagship projects); the profile is updated.
+
+**Abandon path:** if the user explicitly declares the project abandoned (not delivered), the skill confirms once that it will be recorded as `abandoned`, not complete. It then bypasses the milestone precondition and skips the recording, screenshots, and case study. It runs the step-5 teardown per cost-sheet row (confirmation and verification, brief resources only), writes a short retro (cost, milestones reached, framework feedback), sets the brief status to `abandoned`, and commits. Pressure such as "I'm done, just tear it down" is not an explicit abandonment: the skill asks whether the user is abandoning or delivering. The recording gate still applies to Delivery.
 
 ## Testing
 

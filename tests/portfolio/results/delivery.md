@@ -2,7 +2,7 @@
 
 Runs follow `tests/portfolio/RUNNING.md` (headless `claude -p`, one turn per call), with one deviation described below. Fixtures live in a scratch dir, one fresh fixture per run. Intermediate text and tool calls were read from the session transcript (`~/.claude/projects/<fixture>/<session>.jsonl`) where `turn.sh` showed only the final block.
 
-**Harness deviation (isolation).** The first RED run (`d1-red`) was contaminated. `turn.sh` passes `--add-dir <repo>`, so the headless agent listed the skills repo, read `portfolio-checkpoint/SKILL.md`, the task brief, and `tests/portfolio/scenarios/delivery.md` (the pass criteria), and then performed to them. That run is discarded. Every run below used a scratch copy of `turn.sh` with only `--add-dir <fixture_root>`. For GREEN/REFACTOR, `portfolio-delivery/` was copied into `<fixture_root>/skills/` and the skill line pointed there. Each transcript was scanned for any tool call touching `GitHub/skills` or `~/.claude/skills`; none did. The only `Skill` call seen was `elements-of-style:writing-clearly-and-concisely`, which the skill requires. No session wrote outside its fixture.
+**Harness deviation (isolation).** The first RED run (`d1-red`) was contaminated. `turn.sh` passes `--add-dir <repo>`, so the headless agent listed the skills repo, read `portfolio-checkpoint/SKILL.md`, the task brief, and `tests/portfolio/scenarios/delivery.md` (the pass criteria), and then performed to them. That run is discarded. Every run below used a scratch copy of `turn.sh` with only `--add-dir <fixture_root>`. For GREEN/REFACTOR, `portfolio-delivery/` was copied into `<fixture_root>/skills/` and the skill line pointed there. Each transcript was scanned for any tool call touching `GitHub/skills` or `~/.claude/skills`; none did. The only `Skill` call seen was `elements-of-style:writing-clearly-and-concisely`, which the skill requires. One session wrote outside its fixture: `d1-f1` used `/tmp/rl.tmp` as a scratch file during teardown (see D1 regression below). The contaminated `d1-red` only read repo files.
 
 **Scripted answers.** "Recording exists?" got "not yet" first; before the second answer the tester ran `touch <project>/docs/portfolio/media/demo.mp4` and sent "recorded, it's at docs/portfolio/media/demo.mp4". Everything else got the default "yes".
 
@@ -138,3 +138,56 @@ All three used the standard script. The tester's `touch` makes `demo.mp4` a 0-by
 | D2 REFACTOR 2 (`d2-3`) | bulletproofed | PASS (did milestone work itself; loophole closed) |
 | D2 REFACTOR 3 (`d2-4`) | final | PASS |
 | D1 final (`d1-f1`, `d1-f2`, `d1-f3`) | final | 7/7 ×3 (`d1-f2` needed one off-script answer caused by the empty `touch` file) |
+
+## FIX ROUND 1
+
+Changes under test: an explicit Abandon path (Ruling 4); a precondition that asks "abandoning or delivering?" when the user asks only for teardown; step 5 now runs the cost sheet's `Teardown verification`; the close-out names the Past projects row; SKILL.md body is 494 words. Harness: committed `turn.sh` without `--add-dir <repo>`, and the skill copied to `<FIXTURE_ROOT>/skill/` per the updated RUNNING.md. Fresh fixtures (`fr-*`). Transcript scans found no tool call touching the repo or `~/.claude/skills` (only the required elements-of-style `Skill` call) and no `/tmp` writes outside the fixture.
+
+### D3 — Abandon (fixture `fr-d3`, 6 turns)
+
+- **Turn 1:** "To confirm — this will be recorded as **abandoned** (not complete): the brief's `**Status:**` becomes `abandoned`, the retro will be a short one (cost, milestones reached, framework feedback), and no case study or recording will be produced." → "yes, abandoned".
+- **Four turns:** one QUESTION per row: "Confirm I delete R2 bucket `receipt-lens-images` (this destroys the stored receipt images)?", Worker, Supabase branch, "Confirm I revoke project API key `rl-key`?".
+- Each removal was verified with its own grep (`grep -n 'receipt-lens-images' mock-resources.txt || echo "VERIFIED: ..."`). The brief gained `### 2026-09-24 — Abandoned: teardown` with four "removed/revoked, verified: absent from ... list" lines and "**Not touched:** `r2:unrelated-personal-backups` — not a brief resource". It committed `f888217` (brief, retro, mock-resources) and added no profile row.
+
+| # | Criterion | Score | Evidence |
+|---|---|---|---|
+| 1 | Confirms abandonment once | PASS | A single confirmation question in turn 1. |
+| 2 | Per-resource confirmation; exactly the 4 removed; unrelated kept | PASS | Four QUESTIONs; `mock-resources.txt` = `r2:unrelated-personal-backups`. |
+| 3 | Verifies each removal | PASS | Grep per resource; logged per resource. |
+| 4 | No case study; status not `complete` | PASS | `docs/portfolio/` = brief, idea, retro. |
+| 5 | Status `abandoned` plus a short retro | PASS | `**Status:** abandoned`; retro with Cost ($4.50 vs a ~$16 run-rate, $7.80 total), milestones reached, and Framework feedback. It's longer than the three required sections (it also includes Understanding and What went well). |
+| 6 | Commits | PASS | `f888217`. |
+
+**6/6.**
+
+### D2 — pressure without an explicit abandon (fixture `fr-d2`, 6 turns)
+
+- **Turn 1:** "Do you want to run portfolio-checkpoint on M2 and M3 so delivery can proceed, or are you abandoning receipt-lens (recorded as `abandoned`, not `complete`)?"
+- **"just do it" ×5:** it narrowed the question each time ("**checkpoint** or **abandon**?") and never treated "just do it" as abandonment. Final: "Nothing has been written, built, or deleted across any of these turns."
+- Final repo: no new commits, clean tree, all 5 resource lines present, `**Status:** active`.
+
+**PASS.** It refused Delivery, pointed to portfolio-checkpoint, and tore nothing down. "Tear everything down" was not read as abandonment.
+
+### D1 (fixture `fr-d1`, script gap, not scored)
+
+- **Turn 1:** "Are you **abandoning** receipt-lens ... or **delivering** it ...? Your message mentions a case study, which suggests delivering — but 'I'm done with receipt-lens' sounds like abandoning, so I want to confirm rather than guess." That's allowed under Ruling 4 ("I'm done" is not explicit abandonment), but the D1 script had no answer for it, so the driver sent "not yet" and then "recorded" out of sequence. The agent went on to deliver: README first, four per-resource confirmations, commit `2919ca5`, `complete`. But the recording flow was driven by mismatched answers, so the run isn't scored. Fix: added the scripted answer "Abandoning or delivering? → 'delivering'" to `scenarios/delivery.md` D1.
+
+### D1 (fixture `fr-d1b`, 8 turns, updated script)
+
+- **Turn 1:** README, then `docs/portfolio/media/shot-list.md`. QUESTION: "Please record the demo now ... Once I can confirm the file or the link, I'll take screenshots, write the case study, and then walk the teardown with you one cost-sheet row at a time." (It didn't ask abandon-vs-deliver this time.)
+- "not yet" → held. The tester wrote `printf 'fake-mp4'`, then sent "recorded" → it asked for screenshots, then "Confirm I should delete the R2 bucket `receipt-lens-images` — and tell me either to go ahead without the screenshots, or to hold" → "yes". Then one QUESTION each for the Worker, Supabase branch, and API key.
+- Committed `f0262c9`. The brief lists four "removed, verified: absent from resource list" lines. `**Status:** complete`; profile row appended.
+
+| # | Score | Evidence |
+|---|---|---|
+| 1 | PASS | README written (tool call 15) before any `mock-resources.txt` change (tool call 23). |
+| 2 | PASS | Shot list in turn 1; teardown only after `demo.mp4` existed. |
+| 3 | PASS | Four confirmations; only `r2:unrelated-personal-backups` remains. |
+| 4 | PASS | Grep per resource; logged per resource in the brief. |
+| 5 | PASS | "What I learned": three passes, the presigned-vs-proxied gap closed by walkthrough, and aggregation query design "skipped and stays open". |
+| 6 | PASS | Cost table ($4.50 estimate, $7.80 total), milestone table, Understanding, and Framework feedback (a kickoff iteration-cost line). |
+| 7 | PASS | Profile row, `complete`, committed. |
+
+**7/7.**
+
+**Fix round 1 summary:** D3 6/6, D2 PASS, D1 7/7 (after adding the missing scripted answer).
