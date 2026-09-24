@@ -648,6 +648,7 @@ The body must be under 500 words and have these sections:
 - **Overview:** a portfolio project is incomplete without this phase. The recording must exist before anything is torn down.
 - **Precondition (conditional):** "If any non-Delivery milestone is not `done` or lacks a Checkpoint Log entry: stop and point to portfolio-checkpoint."
 - **Procedure:** numbered steps in dependency order, exactly as in the spec (README → shot list plus recording gate → screenshots while live → case study from the template, with learning sourced only from the log → teardown per cost-sheet row, with confirmation and verification, touching only resources listed in the brief (standard), or live URL and cost verification (flagship) → retro from the template → profile Past projects row, brief status `complete`, commit).
+- **Writing:** README and case study prose use **REQUIRED SUB-SKILL:** elements-of-style:writing-clearly-and-concisely (skip silently if not installed).
 - **Recording gate** as a conditional: "If no recording file or link is confirmed: do not start teardown."
 - **Definition of complete** checklist.
 - **Quick reference** and **Common mistakes** from the RED observations.
