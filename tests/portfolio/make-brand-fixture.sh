@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # Generates a throwaway fixture for portfolio-brand scenario tests.
-# Usage: make-brand-fixture.sh <ui|tailwind|nobrief|update> <dir>
+# Usage: make-brand-fixture.sh <ui|tailwind|nobrief|update|dirty|gone> <dir>
 # Creates <dir>/project (git repo) and <dir>/design-system (git repo with two
 # commits: an older version, then the current one). Prints <dir>/project.
 set -euo pipefail
 
 variant="${1:-}"; dir="${2:-}"
-case "$variant" in ui|tailwind|nobrief|update) ;; *)
-  echo "usage: $0 <ui|tailwind|nobrief|update> <dir>" >&2; exit 2;; esac
+case "$variant" in ui|tailwind|nobrief|update|dirty|gone) ;; *)
+  echo "usage: $0 <ui|tailwind|nobrief|update|dirty|gone> <dir>" >&2; exit 2;; esac
 [ -n "$dir" ] || { echo "missing <dir>" >&2; exit 2; }
 if [ -d "$dir" ] && [ -n "$(ls -A "$dir")" ]; then echo "$dir is not empty" >&2; exit 1; fi
 
@@ -48,7 +48,7 @@ if [ "$variant" = nobrief ]; then
 fi
 
 brand_line='**Theme:** tooling · **Status:** planned · **Version:** —'
-[ "$variant" = update ] && brand_line="**Theme:** tooling · **Status:** applied · **Version:** $old_sha"
+[ "$variant" = update ] || [ "$variant" = gone ] && brand_line="**Theme:** tooling · **Status:** applied · **Version:** $old_sha"
 
 mkdir -p "$proj/docs/portfolio"
 cat > "$proj/docs/portfolio/brief.md" <<EOF
@@ -139,13 +139,23 @@ EOF
   perl -pi -e 's#<title>planlens report</title>#<title>planlens report</title>\n<link rel="stylesheet" href="styles/app.css">#' "$proj/web/index.html"
 fi
 
-if [ "$variant" = update ]; then
+if [ "$variant" = update ] || [ "$variant" = gone ]; then
   mkdir -p "$proj/web/brand"
   cp "$old_dir/tokens.css" "$old_dir/base.css" "$proj/web/brand/"
   printf 'design-system %s\ntheme tooling\ndate 2026-09-01\n' "$old_sha" > "$proj/web/brand/VERSION"
   perl -pi -e 's#<html lang="en">#<html lang="en" data-theme="tooling">#; s#<title>planlens report</title>#<title>planlens report</title>\n<link rel="stylesheet" href="brand/tokens.css">\n<link rel="stylesheet" href="brand/base.css">#' "$proj/web/index.html"
 fi
 rm -rf "$old_dir"
+
+# gone: the vendored version's commit no longer exists in the design system (e.g. squash-merged away).
+if [ "$variant" = gone ]; then
+  sed -i.bak "s/$old_sha/deadbee/" "$proj/web/brand/VERSION" "$proj/docs/portfolio/brief.md"
+  rm "$proj/web/brand/VERSION.bak" "$proj/docs/portfolio/brief.md.bak"
+fi
+# dirty: the design system has uncommitted edits.
+if [ "$variant" = dirty ]; then
+  printf '\n/* wip: experimental tweak */\n.card { border-width: 3px; }\n' >> "$ds/base.css"
+fi
 
 git -C "$proj" add -A && git -C "$proj" commit -qm "init planlens"
 echo "$proj"

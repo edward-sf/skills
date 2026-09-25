@@ -28,3 +28,8 @@ test('base.css defines every component class in the spec', () => {
     assert.match(base, new RegExp(`\\.${cls}[\\s{:,.]`), `.${cls} missing`);
   }
 });
+
+test('interactive states do not alter tested colour pairs with filters', () => {
+  // filter: brightness() on .button:hover dropped public-service to 4.42:1.
+  assert.doesNotMatch(base, /filter\s*:/);
+});

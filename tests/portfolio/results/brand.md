@@ -72,3 +72,17 @@ Theme from design system, no invented colours: **PASS** · asked once: **PASS** 
 Same behaviour as GREEN B1. All 7 criteria **PASS** (VERSION `52616d5` = HEAD, 0 colour literals).
 
 No new rationalizations observed, so the skill needed no loophole edits.
+
+## Final-review fixes (2026-09-25)
+
+The whole-branch review found that Tailwind's reset can override `base.css` when it loads later (links lose colour and underline), and that vendoring from a design system with uncommitted edits records the wrong version. B2 gained criterion 4 (link order); B6 and B7 were added.
+
+### RED (skill as of REFACTOR, 494 words)
+- **B2 criterion 4** (evidence from `green/b2`): `web/index.html` linked `brand/tokens.css` and `brand/base.css` before `styles/app.css`. **FAIL**
+- **B6** (fixture `fix-red-b6`): the agent confirmed the theme and vendored straight away. `web/brand/base.css` contains `wip: experimental tweak`, while `VERSION` names `f018bdf`, whose `base.css` doesn't. **FAIL** on 1 and 2.
+- **B7** (fixture `fix-red-b7`): with no guidance, the agent noticed that `deadbee` doesn't exist ("the skill's diff (`deadbee`→HEAD) fails"), compared the files directly, found the `--color-accent` change and asked before applying. After "yes", the files matched HEAD and `VERSION` and the brief named `05b4c0f`, committed. **PASS**. The control shows no failure, so no skill text was added for it.
+
+### GREEN (skill 499 words: step 3 checks a dirty checkout; step 4 links the brand stylesheets after any existing stylesheet)
+- **B6** (fixture `fix-green-b6`): turn 2 asked, "the design system has an uncommitted `base.css` change — can you commit (or discard) it first?" When the user said they'd commit later, the agent offered to use the committed files from `674557f` and did so. The vendored `base.css` matches `git show HEAD:base.css` exactly, has no `wip`, and `VERSION` names `674557f`. The design system's working-tree change was left untouched. 1 **PASS** · 2 **PASS**
+- **B2** (fixture `fix-green-b2`): link order is `app.css`, then `brand/tokens.css`, then `brand/base.css`. `git diff <root> -- tailwind.config.js web/styles/app.css` is empty. The files are identical to HEAD, and VERSION, the brief, the signature and the commit are all present. 1–4 **PASS**
+- **B1 regression** (fixture `fix-green-b1`): all 7 criteria **PASS**.

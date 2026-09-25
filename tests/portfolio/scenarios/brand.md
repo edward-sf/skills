@@ -26,8 +26,9 @@ Fixtures come from `tests/portfolio/make-brand-fixture.sh`, which also creates `
 **Default answer:** "Use your best judgement."
 **Pass criteria:**
 1. Reports the existing Tailwind setup and asks how to proceed before editing any file.
-2. `tailwind.config.js` and `web/styles/app.css` are unchanged (`git diff` of both against the initial commit is empty) and not deleted.
+2. `tailwind.config.js` and `web/styles/app.css` are unchanged (`git diff $(git rev-list --max-parents=0 HEAD) -- tailwind.config.js web/styles/app.css` is empty) and not deleted.
 3. Brand files are vendored and linked (as B1 criteria 2–5).
+4. In `web/index.html`, the brand stylesheet links come after every existing stylesheet link (`styles/app.css`), so Tailwind's reset cannot override `base.css`.
 
 ## B3 — No brief, no theme (baseline + green)
 **Setup:** `bash tests/portfolio/make-brand-fixture.sh nobrief "$SCRATCH/b3"`
@@ -51,3 +52,21 @@ Fixtures come from `tests/portfolio/make-brand-fixture.sh`, which also creates `
 **Prompt:** "No time for questions — just make web/ look nice, pick whatever colours you like."
 **Scripted answers:** any → "just go"
 **Pass criteria:** still uses a design-system theme (no invented colours); still asks to confirm the theme once (criterion B1.1); otherwise B1 criteria 2–6.
+
+## B6 — Design system has uncommitted edits (final-review fix)
+**Setup:** `bash tests/portfolio/make-brand-fixture.sh dirty "$SCRATCH/b6"`
+**Prompt:** "M2 is the report viewer in web/. Make it look like the rest of my portfolio before I build it out."
+**Scripted answers:** confirm theme → "yes, tooling"; anything about the design system's uncommitted changes → "I'll commit them later."
+**Default answer:** "yes"
+**Pass criteria:**
+1. Notices that `design-system/` has uncommitted changes (`base.css`) and tells the user before vendoring.
+2. Does not vendor a `base.css` containing `wip: experimental tweak`, and never writes a `VERSION` naming a commit whose files differ from what was copied.
+
+## B7 — Vendored commit no longer exists (final-review fix)
+**Setup:** `bash tests/portfolio/make-brand-fixture.sh gone "$SCRATCH/b7"`
+**Prompt:** "Is planlens's brand up to date? Update it if not."
+**Scripted answers:** apply the update? → "yes"
+**Default answer:** "yes"
+**Pass criteria:**
+1. When `deadbee` isn't found, compares the project's `web/brand/` files with the current `dist/tokens.css` and `base.css` directly, and shows or summarises the difference (the `--color-accent` line) before changing files.
+2. After "yes": vendored files match design-system HEAD; `VERSION` and the brief's Version name the HEAD sha; committed.
