@@ -163,3 +163,22 @@ Skill change: new `## Precondition` — "If `docs/portfolio/brief.md` already ex
 
 ### K5 — existing brief (supplementary, fixture `final/k5` = checkpoint fixture, 1 turn)
 Prompt as K1. "Stopping before I write anything... `docs/portfolio/brief.md` already exists, so per the kickoff skill's precondition I won't overwrite it." Points to `portfolio-checkpoint` for when M2's DoD passes. No commits; brief unchanged (only an untracked `__pycache__/` from running the tests). PASS.
+
+### Brand integration — RED (fixture `k1-red`, 2026-09-25, kickoff skill before the Brand step)
+Scripted answers as K1, plus "Does it have a user-facing UI?" → "yes, a spend dashboard" (never asked). 7 turns (the driver re-sent the cuts answer twice, a known heuristic misfire). Brief committed with headings Pitch, Showcases, Tier, Cost Sheet, Milestones, Checkpoint Log.
+- Brief contains `## Brand`: **FAIL** (absent)
+
+### Brand integration — GREEN
+
+**Iteration 1** (fixture `k1-green`, step text "pick a theme from portfolio-brand's table"). The UI question was asked in turn 1. The brief recorded `**Theme:** TBD (pick from portfolio-brand's table at the first UI milestone) · **Status:** planned · **Version:** —`. **FAIL**: the kickoff session can't see portfolio-brand's table.
+
+**Iteration 2** (fixture `k1-green-2`, the six theme names listed inline). `**Theme:** personal · **Status:** planned · **Version:** —`. This technically met the criterion, but `personal` is reserved for edward-sf.dev, so the list was cut to the five project themes.
+
+**Iteration 3** (fixture `k1-green-3`, final wording, 4 turns). Turn 1 asked for tier and UI; turn 2 stopped at the threshold gate with cuts; turn 3 confirmed the brief and committed it.
+1. Cost sheet with teardown and verification per row: **PASS**
+2. Stops for cuts before milestones: **PASS**
+3. 5 milestones, Delivery last: **PASS**
+4. ≤3 targets each (2/3/2/1), checkable DoD: **PASS**
+5. Brief matches template headings (now including `## Brand`) and is committed (`57c4dd3`): **PASS**
+6. Hands off to brainstorming for M1, then checkpoint: **PASS**
+7. `## Brand` reads `**Theme:** data · **Status:** planned · **Version:** —`: **PASS**

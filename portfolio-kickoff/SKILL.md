@@ -21,12 +21,13 @@ If `docs/portfolio/brief.md` already exists, stop: don't overwrite it. Point to 
 ## Procedure
 
 1. **Tier.** Ask: standard (recorded, then torn down) or flagship (stays live within the flagship threshold).
-2. **Cost sheet, as proposed.** Cost the plan exactly as the idea states it (its resources, volumes, and jobs), before any cuts. One row per resource, each with: est. monthly cost, covered by existing plan?, an exact teardown step, and how to verify it's gone. Estimates are fine.
-3. **Threshold gate** (below).
-4. **Milestones.** 3–6, each reviewable in one sitting. Each has a one-line goal, a checkable definition of done, and at most 3 new-concept understanding targets (more → split it). The last is always `Delivery`.
-5. **Write the brief** by filling `brief-template.md` (in this skill's directory) into `docs/portfolio/brief.md`. Keep every heading exactly; all milestones start `pending`. Show it and confirm.
-6. **Commit** the brief.
-7. **Hand off.** Send a handoff message: the brief's pitch, tier, cost sheet, and M1 boundary are fixed constraints; **REQUIRED NEXT SKILL:** superpowers:brainstorming for M1 only; run portfolio-checkpoint when M1 is done. If the user asked to start M1 now, send this message first, then start brainstorming. Otherwise end your turn.
+2. **Brand.** User-facing UI? Yes: record the best-fit theme (`tooling`, `operations`, `data`, `public-service`, `playful`), `planned`, Version `—`. No: `none`. Don't vendor files; the first UI milestone runs portfolio-brand.
+3. **Cost sheet, as proposed.** Cost the plan exactly as the idea states it (its resources, volumes, and jobs), before any cuts. One row per resource, each with: est. monthly cost, covered by existing plan?, an exact teardown step, and how to verify it's gone. Estimates are fine.
+4. **Threshold gate** (below).
+5. **Milestones.** 3–6, each reviewable in one sitting. Each has a one-line goal, a checkable definition of done, and at most 3 new-concept understanding targets (more → split it). The last is always `Delivery`.
+6. **Write the brief** by filling `brief-template.md` (in this skill's directory) into `docs/portfolio/brief.md`. Keep every heading exactly; all milestones start `pending`. Show it and confirm.
+7. **Commit** the brief.
+8. **Hand off.** Send a handoff message: the brief's pitch, tier, cost sheet, and M1 boundary are fixed constraints; **REQUIRED NEXT SKILL:** superpowers:brainstorming for M1 only; run portfolio-checkpoint when M1 is done. If the user asked to start M1 now, send this message first, then start brainstorming. Otherwise end your turn.
 
 ## Threshold gate
 
@@ -37,6 +38,7 @@ If the as-proposed Total incremental > the tier's threshold: stop and end your t
 | Step | Output |
 |---|---|
 | Tier | `standard` or `flagship` |
+| Brand | Theme `planned` or `none` |
 | Cost sheet | Per resource: cost, teardown, verification; total vs. threshold |
 | Milestones | 3–6, ≤3 targets each, checkable DoD, Delivery last |
 | Brief | `docs/portfolio/brief.md`, committed |

@@ -20,7 +20,7 @@ Delivery is mandatory. The recording must exist before teardown, which destroys 
 
 1. **README.** From the brief: what, why, architecture sketch, how to run, stack, media slots.
 2. **Shot list, then recording gate.** Write `docs/portfolio/media/shot-list.md` (90 s–2 min: setup, core flow, the target skill). Ask the user to record it; end your turn. Confirm the file in `media/` or the link; link it in the README.
-3. **Screenshots** into `media/` while resources are live.
+3. **Screenshots** into `media/` while resources are live. If the brief's Brand theme isn't `none`, confirm the `.signature` footer is visible in them and the README links to edward-sf.dev.
 4. **Case study.** Fill `case-study-template.md` into `docs/portfolio/case-study.md`. "What I learned" comes only from the Checkpoint Log.
 5. **Teardown or keep-live.**
    - *Standard:* per cost-sheet row: show its teardown step, ask to confirm and end your turn, run it, then its `Teardown verification` (CLI, dashboard, or tool). Touch only brief resources. Log each in the Checkpoint Log: `<resource> — removed, verified: <evidence>`.
