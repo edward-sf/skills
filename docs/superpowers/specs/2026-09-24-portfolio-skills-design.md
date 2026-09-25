@@ -2,7 +2,7 @@
 
 **Date:** 2026-09-24
 **Branch:** `portfolio-skills`
-**Status:** Approved in brainstorming; awaiting spec review
+**Status:** Approved; implemented on branch portfolio-skills
 
 ## Purpose
 
@@ -138,7 +138,7 @@ Every skill after ideation starts by reading `brief.md`. If it is missing, the s
    - Confirm or correct the answer, referencing actual `file:line`.
    - If the answer is shaky, offer a short walkthrough and record the target as a *gap*.
    - The user may skip a target; record it as *skipped*.
-4. **Cost check:** get actual cost to date, from the user or from dashboards and tools where available. Flag drift over 20% versus the estimate, or anything threatening the ceiling.
+4. **Cost check:** get actual cost to date, from the user or from dashboards and tools where available. Compare the monthly rate (current bill, or cost to date ÷ months active) with the monthly estimate; flag drift over 20%, or anything threatening the ceiling.
 5. **Scope check:** if this milestone revealed work that makes the next milestone exceed the sizing rule, propose a split and update the brief.
 6. **Record:** append a checkpoint log entry (date, milestone, done evidence, understanding results per target as pass / gap / skipped, cost to date, adjustments). Mark the milestone `done` and commit.
 7. **Next:** point to `superpowers:brainstorming` for the next milestone. If the next milestone is Delivery, point to `portfolio-delivery`.

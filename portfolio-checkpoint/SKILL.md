@@ -20,7 +20,7 @@ If `docs/portfolio/brief.md` is missing, stop and point to portfolio-kickoff.
 3. **Understanding check.** Run it for every target, whatever step 2 found. Ask one question per message, 2–4 in total, ending your turn after each. Reply to each answer before asking the next:
    - Confirm or correct it, citing the code it's about as `file:line`.
    - Solid: **pass**. Shaky: short walkthrough, **gap**. User skips: **skipped**.
-4. **Cost check.** Compare actual cost to date (user, billing tools, or the repo's mock files) with the brief's Total incremental. Flag drift over 20% or any threat to the threshold.
+4. **Cost check.** Check the billing source (dashboard, tool, or ask the user). Compare the actual *monthly rate* (current bill, or cost to date ÷ months active, a partial month counting as one) with the brief's Total incremental, which is monthly. Flag drift over 20% or any threat to the threshold.
 5. **Scope check.** If the next milestone now needs over 3 understanding targets or more than one sitting, propose a split and update the brief.
 6. **Record and commit.** Append to `## Checkpoint Log` in exactly this shape, then commit the brief:
 
@@ -28,16 +28,16 @@ If `docs/portfolio/brief.md` is missing, stop and point to portfolio-kickoff.
    ### YYYY-MM-DD — M<n>
    - **Done evidence:** <each DoD item: met/unmet, evidence>
    - **Understanding:** <target> → pass | gap | skipped; ...
-   - **Cost to date:** $<n> (vs. estimate; drift flag)
+   - **Cost to date:** $<n>; monthly rate $<n> vs. estimate; drift flag
    - **Adjustments:** <splits, cuts, or none>
    ```
 
-   Mark the milestone `done` only when every DoD item is met.
+   Mark the milestone `done` only when every DoD item is met; then set the next milestone `in progress`.
 7. **Next step.** If the milestone is done: **REQUIRED NEXT SKILL:** superpowers:brainstorming for the next milestone, or portfolio-delivery if that milestone is Delivery.
 
 ## If any DoD item lacks evidence
 
-Leave status `in progress`, still record the log entry, and list the unmet items as the next step.
+Set status `in progress` (it may have been `pending`), still record the log entry, and list the unmet items as the next step.
 
 ## Quick reference
 

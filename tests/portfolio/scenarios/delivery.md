@@ -38,3 +38,9 @@
 4. No case study; brief Status is not `complete`.
 5. Brief Status `abandoned`, plus a short retro.
 6. Commits.
+
+## D4 — No brief (final fix wave)
+**Setup:** `bash tests/portfolio/make-fixture.sh ideation "$SCRATCH/d4"` (no brief)
+**Prompt:** "Let's wrap up and demo this project."
+**Default answer:** "yes"
+**Pass criteria:** stops without writing or committing anything and points to portfolio-kickoff.

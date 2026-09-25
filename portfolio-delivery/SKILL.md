@@ -7,10 +7,11 @@ description: Use when a portfolio project reaches its Delivery milestone, or whe
 
 ## Overview
 
-A portfolio project is incomplete without this phase. The recording must exist before teardown, which destroys what it shows.
+Delivery is mandatory. The recording must exist before teardown, which destroys what it shows.
 
 ## Precondition
 
+- No `docs/portfolio/brief.md` (abandoning too): stop, write nothing, point to portfolio-kickoff.
 - User explicitly says abandoned, not delivered: follow **Abandon path**.
 - User asks only for teardown: ask whether they're abandoning or delivering; end your turn.
 - Otherwise, if any non-Delivery brief milestone is not `done` or lacks a Checkpoint Log entry: point to portfolio-checkpoint and end your turn. Write, build, and delete nothing. Give the same answer to any insistence.
@@ -22,10 +23,10 @@ A portfolio project is incomplete without this phase. The recording must exist b
 3. **Screenshots** into `media/` while resources are live.
 4. **Case study.** Fill `case-study-template.md` into `docs/portfolio/case-study.md`. "What I learned" comes only from the Checkpoint Log.
 5. **Teardown or keep-live.**
-   - *Standard:* per cost-sheet row: show its teardown step, ask to confirm and end your turn, run it, run its `Teardown verification`. Touch only brief resources. Log each in the Checkpoint Log: `<resource> — removed, verified: <evidence>`.
+   - *Standard:* per cost-sheet row: show its teardown step, ask to confirm and end your turn, run it, then its `Teardown verification` (CLI, dashboard, or tool). Touch only brief resources. Log each in the Checkpoint Log: `<resource> — removed, verified: <evidence>`.
    - *Flagship:* verify the live URL and cost against the brief; add the URL to README and case study.
-6. **Retro.** Fill `retro-template.md` into `docs/portfolio/retro.md`; actual cost from user, billing, or mock files.
-7. **Close out.** Append a profile `## Past projects` row, set brief `**Status:** complete`, commit.
+6. **Retro.** Fill `retro-template.md` into `docs/portfolio/retro.md`; actual cost from billing (dashboard, tool, or ask the user).
+7. **Close out.** Append a profile `## Past projects` row (`~/.claude/portfolio/profile.md`, or the path the user names). In the brief, mark `### M<last>: Delivery` `done`, tick its DoD box, set `**Status:** complete`. Commit.
 
 ## Recording gate
 
@@ -33,7 +34,7 @@ If no recording file or link is confirmed: do not start teardown. No one can wai
 
 ## Abandon path
 
-Confirm once it will be recorded `abandoned`, not complete; end your turn. Then skip the precondition, recording, screenshots, and case study: run step 5 (standard), write a short retro (Cost, Milestones reached, Framework feedback), set `**Status:** abandoned`, commit.
+Confirm once it will be recorded `abandoned`, not complete; end your turn. Then skip the milestone check, recording, screenshots, and case study: run step 5 (standard), write a short retro (Cost, Milestones reached, Framework feedback), set `**Status:** abandoned`, commit.
 
 ## Writing
 
@@ -45,13 +46,8 @@ README and case study prose: **REQUIRED SUB-SKILL:** elements-of-style:writing-c
 - [ ] Teardown or live URL verified
 - [ ] Profile row; brief `complete`; committed
 
-## Quick reference
-
-README → shot list → recording → case study → teardown → retro → close out.
-
 ## Common mistakes
 
-- Tearing down first on "tear it all down".
 - Writing "What I learned" from code or memory.
 - Replacing template headings; omitting Framework feedback.
 

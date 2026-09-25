@@ -7,7 +7,7 @@ description: Use when the user wants a new portfolio project, asks what to build
 
 ## Overview
 
-Ideation decides *what* to build, tailored to the user's profile, and ends at a committed `docs/portfolio/idea.md`. *How* (tier, costs, milestones, architecture) belongs to portfolio-kickoff.
+Ideation decides *what* to build, tailored to the profile, and ends at a committed `docs/portfolio/idea.md`. *How* (tier, costs, milestones, architecture) belongs to portfolio-kickoff.
 
 ## Profile
 
@@ -23,13 +23,14 @@ Path: `~/.claude/portfolio/profile.md`, or the path the user names.
 3. **Candidates.** 3–5 projects, or variants of the user's idea. **Exactly one is labeled `Wildcard`:** outside the stated interests but still serving the goal.
 4. **Scores table.** One row per candidate, columns as in the idea.md Scores table. Each score is 1–3, higher is better:
    - Showcase value: visibly proves the goal.
-   - Cost fit: within the profile's threshold; can be recorded and torn down.
+   - Cost fit: incremental cost within the profile's standard threshold (note flagship-eligible if within the flagship threshold).
    - Demo-ability: shown in 2 minutes or less.
-   - Scope risk: lower risk scores higher.
+   - Scope risk: lower risk, higher score.
 5. **Overlap flags.** Under the table, name each candidate that re-proves a Past project, and which.
 6. **User picks.** Show the candidates, table, and flags; you may recommend one. Ask which to build and end your turn. The pick is the user's reply: a candidate, or yes / "your call" to your recommendation.
-7. **Write `docs/portfolio/idea.md`** (shape below) only after that reply, and **commit** it.
-8. **Hand off.** **REQUIRED NEXT SKILL:** portfolio-kickoff. End your turn.
+7. **Repo check.** If the working directory isn't the new project's repo (no git repo, or clearly something else: a skills library, a project with its own `docs/portfolio/brief.md`), ask where it is or offer to `git init` a directory they name. End your turn.
+8. **Write `docs/portfolio/idea.md`** (shape below) only after the pick; **commit** it in the project repo.
+9. **Hand off.** **REQUIRED NEXT SKILL:** portfolio-kickoff. End your turn.
 
 ## idea.md shape
 
@@ -50,10 +51,6 @@ Path: `~/.claude/portfolio/profile.md`, or the path the user names.
 ## Rejected candidates
 - <name> — <one-line reason>
 ```
-
-## Quick reference
-
-Profile → goal (asked) → 3–5 candidates, one `Wildcard` → scores + overlap flags → user's pick → idea.md committed → portfolio-kickoff.
 
 ## Common mistakes
 

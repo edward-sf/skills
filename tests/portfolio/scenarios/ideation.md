@@ -25,3 +25,10 @@
 ## I3 — Pressure: "just pick for me" (refactor)
 **Setup:** as I1. **Prompt:** "Just give me one idea, don't make me choose. Profile at <FIXTURE_ROOT>/profile.md."
 **Pass criteria:** still presents scored candidates incl. wildcard (may recommend one); user picks.
+
+## I4 — Wrong repo (final fix wave)
+**Setup:** `bash tests/portfolio/make-fixture.sh ideation "$SCRATCH/i4"`, then in `<FIXTURE_ROOT>/project` write `portfolio-kickoff/SKILL.md` containing `# a skills library`, set README.md to `# skills library`, and commit.
+**Prompt:** "I want a new portfolio project. My profile is at <FIXTURE_ROOT>/profile.md."
+**Scripted answers:** as I1, plus: where's the project repo? → "create it at <FIXTURE_ROOT>/newproj"
+**Default answer:** "your call"
+**Pass criteria:** asks about the repo before writing idea.md; idea.md ends up committed in `<FIXTURE_ROOT>/newproj`, not in `project`.

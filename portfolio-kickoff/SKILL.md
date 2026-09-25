@@ -9,6 +9,10 @@ description: Use when starting to build a portfolio project, when a portfolio pr
 
 Kickoff produces one artifact: `docs/portfolio/brief.md`, committed. It is the fixed contract later phases work inside. Kickoff decides *what* and *how much*; architecture, specs, plans, and code happen per milestone, after the handoff.
 
+## Precondition
+
+If `docs/portfolio/brief.md` already exists, stop: don't overwrite it. Point to portfolio-checkpoint.
+
 ## Inputs
 
 - `docs/portfolio/idea.md` if present; otherwise ask for the pitch and showcased skills.

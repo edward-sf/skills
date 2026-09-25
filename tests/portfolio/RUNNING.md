@@ -2,6 +2,8 @@
 
 Scenarios run as headless Claude Code sessions (`claude -p`), one turn at a time, so any agent — including a subagent that may not spawn subagents — can drive them. Sessions run with no MCP servers, accept-edits permissions, and a Bash allowlist, so they cannot touch real cloud resources.
 
+Before RED/baseline runs, confirm the skill under test is not installed (`ls ~/.claude/skills/`); if it is, temporarily move its symlink aside and restore it afterwards, because installed skills are visible to headless sessions.
+
 1. **Fixture:** run the scenario's Setup. `<FIXTURE_ROOT>` is the dir passed to `make-fixture.sh`; `<FIXTURE_DIR>` is `<FIXTURE_ROOT>/project`.
 2. **First turn:** write this to a message file (substitute placeholders; `<SKILL_LINE>` is empty for RED; for GREEN/REFACTOR, first run `cp -R <REPO>/portfolio-<name> <FIXTURE_ROOT>/skill`, then use `Before doing anything, read <FIXTURE_ROOT>/skill/SKILL.md (and any files it references) and follow it exactly.`. Scenario sessions get no path to the repo, so they can't read scenarios, briefs, or results):
 
