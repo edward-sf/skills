@@ -72,8 +72,8 @@ Identical in every theme.
 | Type scale | `text-sm` … `text-3xl` | 14, 16, 20, 26, 34, 44 px |
 | Measure | `measure` | 70ch max line length for prose |
 | Spacing | `space-1` … `space-8` | 4, 8, 12, 16, 24, 32, 48, 64 px |
-| Status | `status-{success,warning,danger,info}` and `on-status-*` | Fixed pairs, used as pill/notice backgrounds with their `on-` text colour. Never used as bare text colour, so they work on light and dark themes alike. Always paired with a text label. |
-| Focus | `focus` | Heavy yellow outline (3px + offset) on every interactive element |
+| Status | `status-{success,warning,danger,info}` and `on-status-*` | Fixed pairs, used as pill/notice backgrounds with their `on-` text colour. Never used as bare text colour, so they work on light and dark themes alike. Always paired with a text label. `danger` is `#C4301A`: GOV.UK red `#D4351C` falls just short of 4.5:1 with white. |
+| Focus | `focus`, `focus-inner` | 3px yellow outline (`#FFDD00`) plus a dark ring (`#0B0C0C`) on every interactive element; visible on light and dark backgrounds |
 
 Numbers in tables and ledgers use `font-mono` with tabular figures.
 
@@ -113,7 +113,7 @@ Classes:
 | `.signature` | Footer: `edward-sf · <project> · $<n>/mo`, linking to edward-sf.dev |
 | `.mark` | `ESF` monogram (CSS only, no image asset) |
 
-No JavaScript. No component framework.
+No JavaScript. No component framework. Headings `h1` and `h2` use `clamp()` so they shrink on narrow screens.
 
 ## `portfolio-brand` skill
 
@@ -152,9 +152,9 @@ No JavaScript. No component framework.
 2. **Theme completeness:** every theme defines every theme token; no unknown keys.
 3. **Contrast (WCAG 2.2):** per theme (and per mode for `personal`):
    - `color-text` and `color-text-muted` on `color-bg` and `color-surface`: ≥ 4.5:1 (`public-service` `color-text`: ≥ 7:1)
-   - `color-accent` on `color-bg` (link text): ≥ 4.5:1
+   - `color-accent` on `color-bg` and `color-surface` (link text): ≥ 4.5:1
    - `color-on-accent` on `color-accent`, `color-on-highlight` on `color-highlight`: ≥ 4.5:1
-   - `focus` against `color-bg`: ≥ 3:1
+   - `focus` or `focus-inner` against `color-bg` and `color-surface`: ≥ 3:1
    - each `on-status-*` on its `status-*`: ≥ 4.5:1
 4. **Fixed foundation:** status colours and focus are defined once in the foundation, and no theme overrides them.
 

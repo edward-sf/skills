@@ -1,0 +1,11 @@
+{
+  "mode": "dark",
+  "color": {
+    "bg": "#0E1116", "surface": "#161B22", "text": "#E6EAF0", "text-muted": "#9AA4B1", "rule": "#2A313B",
+    "accent": "#3FD0B4", "on-accent": "#0E1116", "highlight": "#E3A21A", "on-highlight": "#0B0C0C"
+  },
+  "font-heading": "mono",
+  "text-body": 16,
+  "radius": 2,
+  "density": "compact"
+}
