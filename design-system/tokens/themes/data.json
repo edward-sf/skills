@@ -1,0 +1,11 @@
+{
+  "mode": "light",
+  "color": {
+    "bg": "#FBFAF7", "surface": "#F2EEE6", "text": "#1C2433", "text-muted": "#4F5868", "rule": "#D9D1C2",
+    "accent": "#1F3A5F", "on-accent": "#FFFFFF", "highlight": "#E3A21A", "on-highlight": "#1C2433"
+  },
+  "font-heading": "sans",
+  "text-body": 16,
+  "radius": 0,
+  "density": "regular"
+}

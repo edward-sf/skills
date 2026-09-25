@@ -11,6 +11,9 @@
 ## Tier
 <standard | flagship>
 
+## Brand
+**Theme:** <theme | none> · **Status:** <planned | applied> · **Version:** <sha | —>
+
 ## Cost Sheet
 | Resource | Purpose | Est. monthly cost | Covered by existing plan? | Teardown step | Teardown verification |
 |---|---|---|---|---|---|

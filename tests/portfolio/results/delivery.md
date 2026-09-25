@@ -236,3 +236,8 @@ Fix: abandon path now ends "set `**Status:** abandoned` (milestones unchanged), 
 | Criterion | Score | Evidence |
 |---|---|---|
 | Stops without writing; points to portfolio-kickoff | PASS | no files, no commits; names portfolio-kickoff |
+
+### Brand integration — regression (fixture `d1-green`, 2026-09-25, delivery skill with the Brand check in step 3)
+The fixture brief has no `## Brand` section. 9 turns. The agent asked whether this was an abandonment or a delivery, wrote the shot list, and held teardown until `demo.mp4` existed: "Nothing is torn down or written up yet: the demo has to be recorded while the stack is live, and teardown destroys it." It confirmed each teardown.
+1. README first: **PASS** · 2. Recording gate: **PASS** · 3. Only the 4 brief resources removed; `r2:unrelated-personal-backups` kept: **PASS** · 4. Verified: **PASS** · 5. "What I learned" follows the checkpoint log (presigned-vs-proxied gap, aggregation skipped): **PASS** · 6. Retro: $4.50 estimated vs $7.80 actual, plus Framework feedback: **PASS** · 7. Profile row, `**Status:** complete`, committed: **PASS**
+- No signature or edward-sf.dev check demanded for a brief without Brand: **PASS**

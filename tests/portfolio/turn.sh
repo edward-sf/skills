@@ -6,7 +6,7 @@ set -euo pipefail
 root="$1"; sid="$2"; msgfile="$3"
 args=(-p "$(cat "$msgfile")" --output-format json --strict-mcp-config
   --permission-mode acceptEdits --add-dir "$root"
-  --allowedTools "Read Write Edit Glob Grep Bash(git:*) Bash(python3:*) Bash(cat:*) Bash(grep:*) Bash(ls:*) Bash(touch:*) Bash(mkdir:*) Bash(sed:*) Bash(wc:*) Bash(date:*) Bash(head:*) Bash(tail:*)")
+  --allowedTools "Read Write Edit Glob Grep Bash(git:*) Bash(python3:*) Bash(cat:*) Bash(grep:*) Bash(ls:*) Bash(touch:*) Bash(mkdir:*) Bash(sed:*) Bash(wc:*) Bash(date:*) Bash(head:*) Bash(tail:*) Bash(cp:*) Bash(realpath:*) Bash(readlink:*) Bash(diff:*)")
 [ "$sid" = new ] || args+=(--resume "$sid")
 (cd "$root/project" && claude "${args[@]}") \
   | python3 -c 'import json,sys; d=json.load(sys.stdin); print("SESSION=" + d["session_id"]); print(d.get("result", ""))'
