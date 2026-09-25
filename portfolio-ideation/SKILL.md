@@ -27,8 +27,8 @@ Path: `~/.claude/portfolio/profile.md`, or the path the user names.
    - Demo-ability: shown in 2 minutes or less.
    - Scope risk: lower risk, higher score.
 5. **Overlap flags.** Under the table, name each candidate that re-proves a Past project, and which.
-6. **User picks.** Show the candidates, table, and flags; you may recommend one. Ask which to build and end your turn. The pick is the user's reply: a candidate, or yes / "your call" to your recommendation.
-7. **Repo check.** If the working directory isn't the new project's repo (no git repo, or clearly something else: a skills library, a project with its own `docs/portfolio/brief.md`), ask where it is or offer to `git init` a directory they name. End your turn.
+6. **User picks.** Show candidates, table, flags; you may recommend one. Ask which to build and end your turn. The pick is the user's reply: a candidate, or yes / "your call" to your recommendation.
+7. **Repo check.** Use the working directory, whatever its name, unless it isn't a git repo or clearly belongs elsewhere (a skills library, a project with its own `docs/portfolio/brief.md`). Then ask where it is or offer to `git init` a directory they name; end your turn.
 8. **Write `docs/portfolio/idea.md`** (shape below) only after the pick; **commit** it in the project repo.
 9. **Hand off.** **REQUIRED NEXT SKILL:** portfolio-kickoff. End your turn.
 

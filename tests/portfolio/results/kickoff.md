@@ -143,3 +143,23 @@ K2 criteria: 1 PASS, 2 PASS, 5 PASS, no scaffolding before commit PASS.
 **K1 regression: 6/6.**
 
 A final cosmetic edit after this run turned the Overview's double-colon sentence into two sentences. It contains no behavioural wording, so it was not re-run.
+
+## FINAL FIX WAVE
+
+Skill change: new `## Precondition` — "If `docs/portfolio/brief.md` already exists, stop: don't overwrite it. Point to portfolio-checkpoint." Body 476 words.
+
+### K1 (fixture `final/k1`, 4 turns)
+- Tier QUESTION → "standard". Cost sheet as proposed: 6 rows (R2, Worker, Cron Trigger, Supabase, vision API per-upload, vision API nightly re-processing), each with teardown step and verification; "**Total incremental: ~$320/month** ... **Over by ~$310/month**"; "Threshold gate — stopping here", 5 cuts offered.
+- "Drop the nightly re-processing; use a cheaper model for extraction." → brief shown ($5.00/mo, 5 milestones), confirm QUESTION → "yes" → committed `63f90aa`; handoff to superpowers:brainstorming for M1 only, then portfolio-checkpoint.
+
+| # | Criterion | Score | Evidence |
+|---|---|---|---|
+| 1 | Cost sheet R2/Worker/Supabase/LLM with cost, teardown, verification | PASS | 6 rows, all columns |
+| 2 | Detects over-budget and stops before milestones | PASS | gate in turn 2, no brief yet |
+| 3 | 3–6 milestones, Delivery last | PASS | M1–M5, M5 Delivery |
+| 4 | ≤3 targets each; checkable DoD | PASS | 3,3,3,2,0 targets; checkbox DoDs |
+| 5 | brief.md matches template headings; committed | PASS | heading diff only in filled placeholders; `63f90aa` |
+| 6 | Hands off to brainstorming M1; checkpoint after | PASS | handoff text |
+
+### K5 — existing brief (supplementary, fixture `final/k5` = checkpoint fixture, 1 turn)
+Prompt as K1. "Stopping before I write anything... `docs/portfolio/brief.md` already exists, so per the kickoff skill's precondition I won't overwrite it." Points to `portfolio-checkpoint` for when M2's DoD passes. No commits; brief unchanged (only an untracked `__pycache__/` from running the tests). PASS.

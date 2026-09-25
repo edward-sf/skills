@@ -34,7 +34,7 @@ If no recording file or link is confirmed: do not start teardown. No one can wai
 
 ## Abandon path
 
-Confirm once it will be recorded `abandoned`, not complete; end your turn. Then skip the milestone check, recording, screenshots, and case study: run step 5 (standard), write a short retro (Cost, Milestones reached, Framework feedback), set `**Status:** abandoned`, commit.
+Confirm once it will be recorded `abandoned`, not complete; end your turn. Then skip the milestone check, recording, screenshots, and case study: run step 5 (standard), write a short retro (Cost, Milestones reached, Framework feedback), set `**Status:** abandoned` (milestones unchanged), commit.
 
 ## Writing
 

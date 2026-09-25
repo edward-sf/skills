@@ -139,3 +139,40 @@ Every session's tool calls (all 13 fixtures above) were scanned for `Documents/G
 | I3 REFACTOR 2 (`i3-r3`, `i3-r4`) | final | PASS, PASS |
 | I2 (`i2-g3`) | final | PASS |
 | I1 final (`i1-f3`, `i1-f4`) | final | 6/6, 6/6 |
+
+## FINAL FIX WAVE
+
+Skill changes: Cost fit reads "incremental cost within the profile's standard threshold (note flagship-eligible if within the flagship threshold)"; new step 7 **Repo check** before writing idea.md; Quick reference cut.
+
+### I1 iteration 1 (fixture `final/i1`, 5 turns, skill at `ea47116`)
+Step 7 read: "If the working directory isn't the new project's repo (no git repo, or clearly something else: ...), ask where it is...".
+- Candidates 4, one `Wildcard`, scored table with "**flagship-eligible**" notes, overlap flag on Candidate 1 (pantry-pal food domain). User picked the first non-wildcard (Recipe Rewriter Bench).
+- Then: "its README reads `# receipt-lens`, which is the name of candidate 2, not the recipe bench you picked. I don't want to assume this directory is meant for the project you chose." QUESTION about which repo. Default "your call" → wrote and committed `2814a56` in `project` (also rewrote README).
+Criteria 1–6 PASS, but **FAIL (partial)** on the wave's expectation "writes there without asking": the repo's name triggered the repo check.
+Fix: "7. **Repo check.** Use the working directory, whatever its name, unless it isn't a git repo or clearly belongs elsewhere (a skills library, a project with its own `docs/portfolio/brief.md`). Then ask where it is or offer to `git init` a directory they name; end your turn." (499 words.)
+
+### I4 iteration 1 (fixture `final/i4`, 5 turns, skill at `ea47116`)
+After the pick: "the current working directory (`.../i4/project`) is your skills library — it has a `portfolio-kickoff` directory and a README that just says 'skills library.' That's not where Mise should live." QUESTION for the repo path → "create it at <FIXTURE_ROOT>/newproj" → `git init`, idea.md committed `3e97e6d` in newproj; `project` unchanged. PASS.
+
+### I1 iteration 2 (fixture `final/i1b`, 4 turns)
+- Turn 1 read the profile, asked if anything changed. "no" → goal question. Goal → 4 candidates (Recipe Salvage, Receipt → Ledger, Edge Eval Runner, Council Watch `Wildcard`), table with Cost fit notes "*(flagship-eligible)*", overlap flag: "Recipe Salvage re-proves pantry-pal's territory — food and ingredient data — though not its skills".
+- Pick → no repo question; idea.md committed `565147b` in `project` (it noted the `receipt-lens` name mismatch inside idea.md instead of asking). Handoff: "**Required next skill: portfolio-kickoff.**"
+
+| # | Criterion | Score | Evidence |
+|---|---|---|---|
+| 1 | Reads profile first | PASS | profile summary in turn 1 |
+| 2 | 3–5 candidates, 4 scores each | PASS | 4 candidates, full table |
+| 3 | Exactly one wildcard | PASS | Council Watch |
+| 4 | pantry-pal overlap flagged | PASS | Recipe Salvage flagged |
+| 5 | idea.md (pitch, rationale, scores, rejected + reasons), committed | PASS | `565147b` |
+| 6 | Hands off to kickoff, no milestones | PASS | handoff only |
+| + | Writes in the fixture repo without asking | PASS | no repo QUESTION |
+
+### I4 iteration 2 (fixture `final/i4b`, 5 turns)
+- Same flow; after the pick: "The working directory here (`.../i4b/project`) is a skills library — README says 'skills library' and it contains `portfolio-kickoff/SKILL.md` — so I shouldn't write `docs/portfolio/idea.md` into it." QUESTION: "Where should the Mise repo live?" → "create it at <FIXTURE_ROOT>/newproj".
+- `newproj`: `7926d7c Add portfolio idea: Mise` (idea.md only). `project`: unchanged (`e2077c7 skills library`, clean).
+
+| Criterion | Score | Evidence |
+|---|---|---|
+| Asks before writing | PASS | repo QUESTION in turn 3, nothing written before it |
+| idea.md committed in newproj, not project | PASS | `7926d7c` in newproj; project log unchanged |

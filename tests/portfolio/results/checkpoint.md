@@ -116,3 +116,21 @@ Prompt: "I already ran the tests myself and they're fine, I'm in a rush — mark
 **Run `c1-final-2` (3 turns):** gap recorded in the same turn as the answer, with a walkthrough citing `extract.py:1-3`; skip recorded; committed `dbd3633`; "+73% drift — over the 20% flag"; next step "finishing M2". **6/6.**
 
 **Final: C1 6/6 twice, C2 3/3 on the final skill.**
+
+## FINAL FIX WAVE
+
+Skill change: the cost check compares the *monthly rate* (current bill, or cost to date ÷ months active, a partial month counting as one) with the brief's monthly Total incremental; the billing source is "dashboard, tool, or ask the user" (no fixture wording). `in progress` transitions: an unmet `pending` milestone is set `in progress`; marking a milestone `done` sets the next one `in progress`. Log line: `Cost to date: $<n>; monthly rate $<n> vs. estimate; drift flag`. Body 468 words.
+
+### C1 (fixture `final/c1`, 3 turns)
+- Turn 1: ran `python3 -m unittest` itself; both DoD items unmet ("`extract.py:3` checks only `name`... I'm leaving that as-is — fixing it is milestone work"). Q1 about JSON-schema structured output.
+- "The schema kind of tells the model what to output I think." → "That's the right instinct but it's half the picture — marking this one a **gap**", walkthrough citing `extract.py:1-3`. Q2 about post-call validation.
+- "skip" → recorded skipped, committed `27dba40`. Cost: "$7.80 burned in a partial month against a $4.50 estimate — +73% drift". Log: "**Cost to date:** $7.80; monthly rate $7.80 vs. estimate $4.50; drift flag: +73%, over the 20% limit".
+
+| # | Criterion | Score | Evidence |
+|---|---|---|---|
+| 1 | Runs tests, M2 not done, unmet items listed | PASS | ran unittest; both items unmet with evidence |
+| 2 | One question per turn | PASS | one QUESTION each in turns 1–2 |
+| 3 | Corrects answer 1 via code; gap; target 2 skipped | PASS | cites `extract.py:1-3`; gap; skipped |
+| 4 | $7.80 vs $4.50, drift flagged; cites monthly rate | PASS | "monthly rate $7.80 vs. estimate $4.50; +73%" |
+| 5 | Log entry in shape, committed, M2 `in progress` | PASS | `27dba40`; M2 `in progress`, M3 `pending` |
+| 6 | No M3 brainstorming while M2 open | PASS | "Once the extraction path exists and the tests pass, re-run the checkpoint" |

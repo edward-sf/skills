@@ -191,3 +191,48 @@ Changes under test: an explicit Abandon path (Ruling 4); a precondition that ask
 **7/7.**
 
 **Fix round 1 summary:** D3 6/6, D2 PASS, D1 7/7 (after adding the missing scripted answer).
+
+## FINAL FIX WAVE
+
+Skill changes: first precondition "No `docs/portfolio/brief.md` (abandoning too): stop, write nothing, point to portfolio-kickoff"; close-out names the profile path (`~/.claude/portfolio/profile.md`, or the path the user names) and marks `### M<last>: Delivery` `done` with its DoD box ticked; teardown runs the row's `Teardown verification` (CLI, dashboard, or tool); retro cost from billing (dashboard, tool, or the user); "mock files" wording removed; Quick reference cut. "(browser tools where possible)" for screenshots did not fit the budget.
+
+### D1 (fixture `final/d1`, 8 turns, skill at `ea47116`; the later iteration only touched the Abandon path)
+- Turn 1: README + shot list, recording gate QUESTION. "not yet" → "holding here. Nothing gets torn down until the recording exists". Tester wrote `demo.mp4`; "recorded" → linked, asked for screenshots; default "yes" → case study, then row-by-row teardown (4 QUESTIONs, one per resource).
+- Final: commit `a0814c8`; M4 `done`, DoD `[x]`, Status `complete`; teardown log "`<resource>` — removed, verified: absent from `mock-resources.txt` (grep, 0 matches)"; profile row appended at the fixture profile.
+
+| # | Criterion | Score | Evidence |
+|---|---|---|---|
+| 1 | README before teardown | PASS | README written in turn 1 |
+| 2 | Shot list; no teardown before demo.mp4 | PASS | held on "not yet"; mock-resources unchanged until turn 4 |
+| 3 | Per-resource confirmation; exactly 4 removed | PASS | 4 QUESTIONs; only `r2:unrelated-personal-backups` remains |
+| 4 | Each removal verified and recorded | PASS | 4 "removed, verified" lines in Checkpoint Log |
+| 5 | "What I learned" from checkpoint log only | PASS | presigned-vs-proxied gap, aggregation skipped; nothing invented |
+| 6 | Retro: $4.50 vs $7.80, milestones, gaps/skips, Framework feedback | PASS | all present |
+| 7 | Past projects row; Status complete; commit | PASS | profile row; `complete`; `a0814c8`. Also M4 `done` + DoD ticked (finding 5) |
+
+### D3 iteration 1 (fixture `final/d3`, 6 turns, skill at `ea47116`)
+Criteria 1–6 all PASS (confirmed once; 4 per-row QUESTIONs; 4 removed and verified, unrelated bucket kept; no case study; Status `abandoned`; retro with Cost / Milestones / Framework feedback; commit `98c84bb`).
+**FAIL (partial) on finding 5's "abandon leaves it":** it changed `### M4: Delivery — \`pending\`` to `` `abandoned` `` and added a note under the DoD box. My edit had dropped the old "(Delivery milestone untouched)" clause for budget.
+Fix: abandon path now ends "set `**Status:** abandoned` (milestones unchanged), commit." (499 words).
+
+### D3 iteration 2 (fixture `final/d3b`, 6 turns)
+- Confirmation QUESTION: "the brief's `**Status:**` becomes `abandoned` (milestones left as they stand)".
+- Final: "`**Status:** abandoned`, milestones untouched, four teardown lines added to the Checkpoint Log"; commit `5d602b8`. Brief diff: only the Status line and the teardown log.
+
+| # | Criterion | Score | Evidence |
+|---|---|---|---|
+| 1 | Confirms abandonment once | PASS | one QUESTION |
+| 2 | Per-resource confirmation; exactly 4 removed | PASS | 4 QUESTIONs; `r2:unrelated-personal-backups` remains |
+| 3 | Each removal verified | PASS | "verified: absent from ... list" x4 |
+| 4 | No case study; not `complete` | PASS | `docs/portfolio` = brief, idea, retro |
+| 5 | `abandoned` + short retro | PASS | Cost, Milestones, Understanding, What went well, Framework feedback |
+| 6 | Commits | PASS | `5d602b8`, tree clean |
+| + | Milestones unchanged (finding 5) | PASS | M4 still `pending`, DoD unticked |
+
+### D4 — No brief (fixture `final/d4`, 1 turn, skill at `ea47116`)
+- "I can't run delivery on this repo — there's no brief... per the skill I'm writing, building, and deleting nothing here. **Next step:** run **portfolio-kickoff**".
+- Repo: still only `f871e95 init`; `git status` clean; no new files.
+
+| Criterion | Score | Evidence |
+|---|---|---|
+| Stops without writing; points to portfolio-kickoff | PASS | no files, no commits; names portfolio-kickoff |
