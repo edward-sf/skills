@@ -13,6 +13,10 @@ for d in "$repo"/portfolio-*/; do
   [ "$(readlink "$tmp/.claude/skills/$n")" = "${d%/}" ] || fail "$n wrong target"
 done
 
+# portfolio-brand reaches the design system through its symlink.
+[ -f "$(cd "$tmp/.claude/skills/portfolio-brand" && pwd -P)/../design-system/dist/tokens.css" ] \
+  || fail "design-system not reachable from portfolio-brand"
+
 # Idempotent: second run reports ok, exit 0.
 out="$(HOME="$tmp" bash "$repo/install.sh")"
 echo "$out" | grep -q "^ok portfolio-kickoff$" || fail "not idempotent: $out"
