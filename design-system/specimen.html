@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="personal" data-mode="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design System Specimen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Public+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="dist/tokens.css">
+<link rel="stylesheet" href="base.css">
+<style>
+  /* Specimen-only layout: each panel renders one theme. */
+  .panel { background: var(--color-bg); color: var(--color-text); padding: var(--space-6) 0; font-size: var(--text-body); }
+  .panel + .panel { border-top: 4px solid var(--color-text); }
+  .panel > .container > h2:first-child { margin-top: 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-5); }
+  .row { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; margin-bottom: var(--density-gap); }
+</style>
+</head>
+<body>
+<template id="panel">
+  <header class="site-header"><div class="container site-header__inner">
+    <a class="mark" href="#">Edward Simpson-Fitzgibbon</a>
+    <nav aria-label="Primary"><a href="#">Work</a><a href="#">Writing</a><a href="#">About</a></nav>
+  </div></header>
+  <div class="container">
+    <p class="muted" data-slot="label"></p>
+    <h1>Safe, auditable cloud for AI and regulated data.</h1>
+    <p>Identity, guardrails and cost controls so AI can be trusted with health and financial data. <a href="#">Read the case study</a>.</p>
+    <div class="row">
+      <button class="button" type="button">Primary action</button>
+      <a class="button button--secondary" href="#">Secondary</a>
+      <span class="pill pill--success">Live</span>
+      <span class="pill pill--warning">Warn</span>
+      <span class="pill pill--danger">Failing</span>
+      <span class="pill pill--info">Info</span>
+      <span class="pill pill--highlight">In progress</span>
+      <span class="pill">Draft</span>
+    </div>
+    <div class="grid">
+      <div>
+        <h3>Monthly run cost</h3>
+        <table class="ledger">
+          <thead><tr><th>Project</th><th>Cost</th></tr></thead>
+          <tbody>
+            <tr><td>tf-prism</td><td>$0.00</td></tr>
+            <tr><td>halfmoon</td><td>$0.00</td></tr>
+            <tr><td>episent.ai</td><td>$1.40</td></tr>
+          </tbody>
+          <tfoot><tr><td>Total</td><td>$1.40</td></tr></tfoot>
+        </table>
+      </div>
+      <div>
+        <div class="card">
+          <h3>halfmoon</h3>
+          <p>SLOs as code with OpenTelemetry. <code>slo.yaml</code> drives alerts and dashboards.</p>
+        </div>
+        <div class="notice notice--warning"><p><strong>Error budget:</strong> 28% used this window.</p></div>
+      </div>
+    </div>
+    <h2>Section heading</h2>
+    <p>Body text sits at a comfortable measure so paragraphs stay readable on wide screens. Secondary text is <small>muted like this</small>.</p>
+    <pre><code>$ tf-prism analyze plan.json --policy policies/
+2 resources to create, 1 policy warning</code></pre>
+    <table>
+      <thead><tr><th>Resource</th><th>Action</th><th class="num">Est. $/mo</th></tr></thead>
+      <tbody>
+        <tr><td>aws_s3_bucket.logs</td><td>create</td><td class="num">0.12</td></tr>
+        <tr><td>azurerm_role_assignment.ci</td><td>update</td><td class="num">0.00</td></tr>
+      </tbody>
+    </table>
+    <footer class="signature">edward-sf · specimen · $1.40/mo · <a href="https://edward-sf.dev">edward-sf.dev</a></footer>
+  </div>
+</template>
+
+<main id="panels"></main>
+
+<script>
+  const panels = [
+    ['personal', 'light'], ['personal', 'dark'], ['tooling'], ['operations'],
+    ['data'], ['public-service'], ['playful'],
+  ];
+  const tpl = document.getElementById('panel');
+  const main = document.getElementById('panels');
+  for (const [theme, mode] of panels) {
+    const section = document.createElement('section');
+    section.className = 'panel';
+    section.dataset.theme = theme;
+    if (mode) section.dataset.mode = mode;
+    section.setAttribute('aria-label', `${theme}${mode ? ` (${mode})` : ''} theme`);
+    section.append(tpl.content.cloneNode(true));
+    section.querySelector('[data-slot="label"]').textContent =
+      `data-theme="${theme}"${mode ? ` data-mode="${mode}"` : ''}`;
+    main.append(section);
+  }
+</script>
+</body>
+</html>
